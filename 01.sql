@@ -136,3 +136,124 @@ SELECT model,
        dysk
 FROM   PC
 WHERE  szybkosc=3.2 AND cena < 2000;
+
+--ZD1vii
+SELECT TOP 3 szybkosc,
+             model
+FROM Laptop
+ORDER BY szybkosc;
+
+--ZD1viii
+SELECT model,
+       CAST(ram AS FLOAT)/1024 AS 'ram [GB]'
+FROM   Laptop;
+
+--ZD2i
+SELECT klasa,
+       kraj
+FROM   Klasy
+WHERE  liczbaDzial >= 10;
+
+--ZD2ii
+SELECT nazwa AS 'nazwaOkretu'
+FROM   Okrety
+WHERE  zwodowano < 1918;
+
+--ZD2iii
+SELECT okret,
+       bitwa
+FROM   Skutki
+WHERE  efekt = 'zatopiony';
+
+--ZD2iv
+SELECT nazwa AS 'nazwaOkretu'
+FROM   Okrety
+WHERE  nazwa = klasa;
+
+--ZD2v
+SELECT nazwa AS 'nazwaOkretu'
+FROM   Okrety
+WHERE  nazwa LIKE 'R%';
+
+SELECT okret AS 'nazwaOkretu'
+FROM   Skutki
+WHERE  okret LIKE 'R%';
+
+--ZD2vi
+SELECT nazwa AS 'nazwaOkretu'
+FROM   Okrety
+WHERE  nazwa LIKE '% % %';
+
+SELECT okret AS 'nazwaOkretu'
+FROM   Skutki
+WHERE  okret LIKE '% % %';
+
+--ZD2vii
+SELECT DISTINCT nazwa AS 'nazwaOkretu'
+FROM   Okrety
+WHERE  zwodowano < 1921;
+
+--ZD2viii
+SELECT DISTINCT okret AS 'nazwaOkretu'
+FROM   Skutki
+WHERE  bitwa LIKE 'Denmark Strait' AND efekt = 'zatopiony';
+
+--ZD2ix
+SELECT TOP 1 zwodowano, nazwa AS 'nazwaOkretu'
+FROM   Okrety
+ORDER BY zwodowano DESC;
+
+--ZD2x
+SELECT SUBSTRING(nazwa, 0, 6) AS 'nazwa_5'
+FROM   Bitwy;
+
+--ZD2xi
+SELECT nazwa,
+       CAST(data AS DATETIME) AS 'data bitwy'
+FROM   Bitwy;
+
+--ZD2xii
+SELECT nazwa,
+       DATEDIFF(YEAR, CAST(data AS DATETIME), GETDATE()) AS 'ile lat minęło'
+FROM   Bitwy;
+
+--ZD2xiii
+SELECT *
+FROM   Okrety
+ORDER BY zwodowano DESC,
+         nazwa ASC;
+
+--ZD2iv
+SELECT klasa,
+       CASE typ
+            WHEN 'pn' THEN 'pancernik'
+            WHEN 'kr' THEN 'krążownik'
+            ELSE 'UNKNOWN'
+            END AS 'typ'
+FROM   Klasy;
+
+--ZD3i
+SELECT id,
+       nazwa,
+       dataZakonczFakt
+FROM   Projekty
+WHERE  dataZakonczFakt IS NULL;
+
+--ZD3ii
+SELECT id,
+       nazwisko,
+       ISNULL(dod_funkc, 100) AS 'premia świąteczna'
+FROM   Pracownicy
+WHERE  stanowisko <> 'profesor';
+
+--ZD3iii
+--To zapytanie nie zwróci wszystkich pracowników, gdyż niektórzy pracownicy nie posiadają dod_funkc, co nie zostanie uwzględnione w klauzuli WHERE.
+
+--ZD3iv
+SELECT id,
+       nazwa,
+       dataZakonczFakt,
+       CASE WHEN dataZakonczFakt IS NULL THEN 0
+       ELSE 1
+       END AS 'test CASE'
+FROM   Projekty;
